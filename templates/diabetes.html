@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Diabetes Diagnosis - CureSight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">🩺</span>
+            CureSight
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/features" class="nav-link">Features</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <a href="/features" class="back-button">
+            <span class="arrow">←</span> Back to Features
+        </a>
+        <header>
+            <h1>Diabetes Risk Check</h1>
+            <p class="subtitle">AI-powered diabetes screening</p>
+        </header>
+
+        {% if prediction %}
+        <div class="result-section">
+            <div class="result {{ 'danger' if prediction == 'Positive' else 'safe' }}">
+                <span class="result-icon">{{ '⚠️' if prediction == 'Positive' else '✅' }}</span>
+                <span>{{ insights.title }}</span>
+            </div>
+
+            <div class="insights-container">
+                <div class="insight-card glass-card">
+                    <h3>Analysis Summary</h3>
+                    <p>{{ insights.description }}</p>
+                </div>
+
+                {% if insights.risk_factors %}
+                <div class="insight-card glass-card">
+                    <h3>🔍 Risk Factors</h3>
+                    <ul class="insight-list">
+                        {% for factor in insights.risk_factors %}
+                        <li>{{ factor }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if insights.recommendations %}
+                <div class="insight-card glass-card">
+                    <h3>💡 Recommendations</h3>
+                    <ul class="insight-list">
+                        {% for rec in insights.recommendations %}
+                        <li>{{ rec }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if insights.tips %}
+                <div class="insight-card glass-card">
+                    <h3>💚 Health Tips</h3>
+                    <ul class="insight-list">
+                        {% for tip in insights.tips %}
+                        <li>{{ tip }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="result danger">
+            Error: {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="card form-card" style="max-width: 900px; margin: 2rem auto;">
+            <h2 style="margin-bottom: 1.5rem;">Enter Patient Data</h2>
+            <form action="/diabetes" method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" name="age" required step="1" min="1" max="120" placeholder="e.g. 45">
+                    </div>
+                    <div class="form-group">
+                        <label>Hypertension</label>
+                        <select name="hypertension" required>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Heart Disease History</label>
+                        <select name="heart_disease" required>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Smoking History</label>
+                        <select name="smoking_history" required>
+                            <option value="never">Never</option>
+                            <option value="current">Current</option>
+                            <option value="former">Former</option>
+                            <option value="ever">Ever</option>
+                            <option value="not current">Not Current</option>
+                            <option value="No Info">No Info</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>BMI</label>
+                        <input type="number" name="bmi" required step="0.01" placeholder="e.g. 25.5">
+                    </div>
+                    <div class="form-group">
+                        <label>HbA1c Level</label>
+                        <input type="number" name="HbA1c_level" required step="0.1" placeholder="e.g. 5.7">
+                    </div>
+                    <div class="form-group">
+                        <label>Blood Glucose Level</label>
+                        <input type="number" name="blood_glucose_level" required step="1" placeholder="e.g. 100">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 2rem;">
+                    Analyze Results
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

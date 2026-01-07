@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pneumonia Detection - CureSight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">🩺</span>
+            CureSight
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/features" class="nav-link">Features</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <a href="/features" class="back-button">
+            <span class="arrow">←</span> Back to Features
+        </a>
+        <header>
+            <h1>Pneumonia Detection</h1>
+            <p class="subtitle">AI-powered chest X-ray analysis</p>
+        </header>
+
+        {% if prediction %}
+        <div class="result-section">
+            <div class="result {{ 'danger' if prediction == 'Pneumonia Detected' else 'safe' }}">
+                <span class="result-icon">{{ '🫁' if prediction == 'Pneumonia Detected' else '✅' }}</span>
+                <span>{{ insights.title }}</span>
+            </div>
+
+            <div class="insights-container">
+                <div class="insight-card glass-card">
+                    <h3>Analysis Summary</h3>
+                    <p>{{ insights.description }}</p>
+                    {% if insights.about %}
+                    <p style="margin-top: 1rem; font-style: italic;">{{ insights.about }}</p>
+                    {% endif %}
+                </div>
+
+                {% if insights.symptoms %}
+                <div class="insight-card glass-card">
+                    <h3>🤒 Common Symptoms</h3>
+                    <ul class="insight-list">
+                        {% for symptom in insights.symptoms %}
+                        <li>{{ symptom }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if insights.recommendations %}
+                <div class="insight-card glass-card">
+                    <h3>💡 Recommendations</h3>
+                    <ul class="insight-list">
+                        {% for rec in insights.recommendations %}
+                        <li>{{ rec }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if insights.tips %}
+                <div class="insight-card glass-card">
+                    <h3>🛡️ Prevention Tips</h3>
+                    <ul class="insight-list">
+                        {% for tip in insights.tips %}
+                        <li>{{ tip }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="result danger">
+            Error: {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="card form-card" style="max-width: 600px; margin: 2rem auto; text-align: center;">
+            <h2 style="margin-bottom: 1.5rem;">Upload Chest X-Ray</h2>
+            <form action="/pneumonia" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="file-upload-area" id="upload-area">
+                        <input type="file" name="file" accept="image/*" required id="pneumonia-file"
+                            onchange="showFileInfo(this)">
+                        <label for="pneumonia-file" class="file-upload-label" id="upload-label">
+                            <span class="upload-icon" id="upload-icon">🩻</span>
+                            <span id="upload-text">Click to select or drag X-ray image here</span>
+                        </label>
+                    </div>
+                    <div id="file-info" class="file-info" style="display: none;">
+                        <span class="file-success-icon">✅</span>
+                        <span id="file-name">filename.jpg</span>
+                        <span class="file-ready">Ready to analyze</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 1.5rem;">
+                    Analyze X-Ray
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showFileInfo(input) {
+            const fileInfo = document.getElementById('file-info');
+            const fileName = document.getElementById('file-name');
+            const uploadLabel = document.getElementById('upload-label');
+            const uploadIcon = document.getElementById('upload-icon');
+            const uploadText = document.getElementById('upload-text');
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                fileName.textContent = file.name;
+                fileInfo.style.display = 'flex';
+                uploadLabel.classList.add('file-selected');
+                uploadIcon.textContent = '✅';
+                uploadText.textContent = 'X-Ray selected - Click to change';
+            }
+        }
+    </script>
+</body>
+
+</html>

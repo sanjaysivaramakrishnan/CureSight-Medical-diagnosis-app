@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CureSight - AI Powered Medical Diagnosis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="home-page">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">🩺</span>
+            CureSight
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link active">Home</a>
+            <a href="/features" class="nav-link">Features</a>
+            <!-- <a href="/contact" class="nav-link">Contact</a> -->
+        </div>
+    </nav>
+
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🔬 AI-Powered Diagnostics</div>
+            <h1 class="hero-title">
+                Smart Health Analysis
+                <span class="gradient-text">Powered by AI</span>
+            </h1>
+            <p class="hero-description">
+                CureSight uses advanced machine learning to provide instant preliminary
+                health assessments for 7 different conditions. Fast, accurate, and accessible.
+            </p>
+            <div class="hero-buttons">
+                <a href="/features" class="btn btn-primary btn-glow">
+                    <span>Start Diagnosis</span>
+                    <span class="btn-arrow">→</span>
+                </a>
+                <a href="#about" class="btn btn-outline">Learn More</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">7</span>
+                    <span class="stat-label">Diseases</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">&lt;1s</span>
+                    <span class="stat-label">Results</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="about" class="features-section">
+        <div class="container">
+            <h2 class="section-title">What CureSight Offers</h2>
+            <p class="section-subtitle">Comprehensive AI diagnostics at your fingertips</p>
+
+            <div class="features-grid">
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrapper">
+                        <span class="feature-icon">❤️</span>
+                    </div>
+                    <h3>Heart & Cardiovascular</h3>
+                    <p>Analyze cardiac risk factors including BP, cholesterol, and ECG patterns.</p>
+                </div>
+
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrapper">
+                        <span class="feature-icon">🔬</span>
+                    </div>
+                    <h3>Blood Analysis</h3>
+                    <p>Detect diabetes and kidney conditions through metabolic markers.</p>
+                </div>
+
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrapper">
+                        <span class="feature-icon">🧬</span>
+                    </div>
+                    <h3>Cancer Screening</h3>
+                    <p>Breast cancer classification using cellular morphology analysis.</p>
+                </div>
+
+                <div class="feature-card glass-card">
+                    <div class="feature-icon-wrapper">
+                        <span class="feature-icon">📷</span>
+                    </div>
+                    <h3>Image Analysis</h3>
+                    <p>Deep learning models for Malaria cells and Pneumonia X-rays.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Select Condition</h3>
+                    <p>Choose from 7 available diagnostic tests</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Input Data</h3>
+                    <p>Enter medical parameters or upload images</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Results</h3>
+                    <p>Receive AI-powered analysis instantly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content glass-card">
+            <h2>Ready to Check Your Health?</h2>
+            <p>Get instant AI-powered health insights in seconds</p>
+            <a href="/features" class="btn btn-primary btn-large btn-glow">
+                Start Free Diagnosis →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="brand-icon">🩺</span> CureSight
+                </div>
+                <p class="footer-text">Developed by Sanjay Sivaramakrishnan and Team</p>
+            </div>
+            <div class="footer-disclaimer">
+                CureSight provides AI-assisted preliminary screening. Results should be verified by licensed healthcare
+                providers.
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

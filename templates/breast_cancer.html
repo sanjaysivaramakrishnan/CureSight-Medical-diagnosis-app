@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>Breast Cancer Diagnosis - CureSight</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+        <nav class="navbar">
+                <div class="nav-brand">
+                        <span class="brand-icon">🩺</span>
+                        CureSight
+                </div>
+                <div class="nav-links">
+                        <a href="/" class="nav-link">Home</a>
+                        <a href="/features" class="nav-link">Features</a>
+                </div>
+        </nav>
+
+        <div class="container">
+                <a href="/features" class="back-button">
+                        <span class="arrow">←</span> Back to Features
+                </a>
+                <header>
+                        <h1>Breast Cancer Check</h1>
+                        <p class="subtitle">AI-powered cellular morphology analysis</p>
+                </header>
+
+                {% if prediction %}
+                <div class="result-section">
+                        <div class="result {{ 'danger' if prediction == 'Malignant' else 'safe' }}">
+                                <span class="result-icon">{{ '⚠️' if prediction == 'Malignant' else '✅' }}</span>
+                                <span>{{ insights.title }}</span>
+                        </div>
+
+                        <div class="insights-container">
+                                <div class="insight-card glass-card">
+                                        <h3>Analysis Summary</h3>
+                                        <p>{{ insights.description }}</p>
+                                </div>
+
+                                {% if insights.next_steps %}
+                                <div class="insight-card glass-card">
+                                        <h3>🏥 Next Steps</h3>
+                                        <ul class="insight-list">
+                                                {% for step in insights.next_steps %}
+                                                <li>{{ step }}</li>
+                                                {% endfor %}
+                                        </ul>
+                                </div>
+                                {% endif %}
+
+                                {% if insights.tips %}
+                                <div class="insight-card glass-card">
+                                        <h3>💚 Health Tips</h3>
+                                        <ul class="insight-list">
+                                                {% for tip in insights.tips %}
+                                                <li>{{ tip }}</li>
+                                                {% endfor %}
+                                        </ul>
+                                </div>
+                                {% endif %}
+                        </div>
+                </div>
+                {% endif %}
+
+                {% if error %}
+                <div class="result danger">
+                        Error: {{ error }}
+                </div>
+                {% endif %}
+
+                <div class="card form-card" style="max-width: 700px; margin: 2rem auto;">
+                        <h2 style="margin-bottom: 1.5rem;">Enter Cellular Measurements</h2>
+                        <form action="/breast_cancer" method="POST">
+                                <div class="form-grid">
+                                        <div class="form-group">
+                                                <label>Mean Radius</label>
+                                                <input type="number" name="mean_radius" step="0.01" required
+                                                        placeholder="e.g. 14.0">
+                                        </div>
+                                        <div class="form-group">
+                                                <label>Mean Texture</label>
+                                                <input type="number" name="mean_texture" step="0.01" required
+                                                        placeholder="e.g. 19.0">
+                                        </div>
+                                        <div class="form-group">
+                                                <label>Mean Perimeter</label>
+                                                <input type="number" name="mean_perimeter" step="0.01" required
+                                                        placeholder="e.g. 90.0">
+                                        </div>
+                                        <div class="form-group">
+                                                <label>Mean Area</label>
+                                                <input type="number" name="mean_area" step="0.1" required
+                                                        placeholder="e.g. 600">
+                                        </div>
+                                        <div class="form-group">
+                                                <label>Mean Smoothness</label>
+                                                <input type="number" name="mean_smoothness" step="0.0001" required
+                                                        placeholder="e.g. 0.1">
+                                        </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" style="margin-top: 2rem;">Analyze
+                                        Results</button>
+                        </form>
+                </div>
+        </div>
+</body>
+
+</html>

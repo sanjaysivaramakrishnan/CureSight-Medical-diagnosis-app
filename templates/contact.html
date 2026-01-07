@@ -1,0 +1,282 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - CureSight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        .contact-section {
+            padding: 8rem 2rem 4rem;
+            min-height: 100vh;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .contact-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .contact-header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto 3rem;
+        }
+
+        .contact-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px -15px rgba(99, 102, 241, 0.3);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-link {
+            display: inline-block;
+            color: var(--cyan);
+            font-weight: 600;
+            font-size: 0.9rem;
+            word-break: break-all;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px var(--primary);
+        }
+
+        .developer-section {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .developer-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .developer-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            margin: 0 auto 1.5rem;
+            border: 4px solid var(--glass-border);
+        }
+
+        .developer-card h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .developer-title {
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .developer-bio {
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--surface-light);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-simple {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="animated-bg">
+        <div class="gradient-orb"
+            style="width: 600px; height: 600px; background: var(--primary); top: -200px; left: -200px;"></div>
+        <div class="gradient-orb"
+            style="width: 500px; height: 500px; background: var(--secondary); bottom: -150px; right: -150px;"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">🩺</span>
+            CureSight
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/features" class="nav-link">Features</a>
+            <a href="/contact" class="nav-link active">Contact</a>
+        </div>
+    </nav>
+
+    <section class="contact-section">
+        <div class="contact-header">
+            <div class="hero-badge" style="margin-bottom: 1.5rem;">📬 Get In Touch</div>
+            <h1>Let's <span class="gradient-text">Connect</span></h1>
+            <p>Have questions about CureSight? Interested in collaboration or discussing healthcare AI? I'd love to hear
+                from you!</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <h3>Email</h3>
+                <p>Reach out for inquiries, feedback, or collaboration opportunities</p>
+                <div class="contact-link">sanjaysridhar987@gmail.com</div>
+                <a href="mailto:sanjaysridhar987@gmail.com" class="contact-btn">
+                    Send Email →
+                </a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">💼</div>
+                <h3>LinkedIn</h3>
+                <p>Let's connect professionally and expand our network</p>
+                <div class="contact-link">Sanjay Sivaramakrishnan M</div>
+                <a href="https://www.linkedin.com/in/sanjay-sivaramakrishnan-m-b4509a291/" target="_blank"
+                    class="contact-btn">
+                    View Profile →
+                </a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">🐙</div>
+                <h3>GitHub</h3>
+                <p>Explore my projects, contributions, and open source work</p>
+                <div class="contact-link">github.com/sanjaysivaramakrishnan</div>
+                <a href="https://github.com/sanjaysivaramakrishnan" target="_blank" class="contact-btn">
+                    View GitHub →
+                </a>
+            </div>
+        </div>
+
+        <div class="developer-section">
+            <div class="developer-card">
+                <div class="developer-avatar">👨‍💻</div>
+                <h2>Sanjay Sivaramakrishnan M</h2>
+                <p class="developer-title">Developer & AI/ML Enthusiast</p>
+                <p class="developer-bio">
+                    Hi! I'm passionate about leveraging artificial intelligence and machine learning
+                    to solve real-world problems. CureSight represents my exploration into how
+                    technology can assist in healthcare diagnostics, making preliminary health
+                    screening more accessible to everyone.
+                </p>
+                <div class="social-links">
+                    <a href="mailto:sanjaysridhar987@gmail.com" class="social-link" title="Email">📧</a>
+                    <a href="https://www.linkedin.com/in/sanjay-sivaramakrishnan-m-b4509a291/" target="_blank"
+                        class="social-link" title="LinkedIn">💼</a>
+                    <a href="https://github.com/sanjaysivaramakrishnan" target="_blank" class="social-link"
+                        title="GitHub">🐙</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-simple">
+        <p>Made with ❤️ by Sanjay Sivaramakrishnan M and Team</p>
+    </footer>
+</body>
+
+</html> -->

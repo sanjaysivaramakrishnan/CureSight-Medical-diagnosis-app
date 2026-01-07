@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kidney Disease Diagnosis - CureSight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">🩺</span>
+            CureSight
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/features" class="nav-link">Features</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <a href="/features" class="back-button">
+            <span class="arrow">←</span> Back to Features
+        </a>
+        <header>
+            <h1>Kidney Disease Check</h1>
+            <p class="subtitle">AI-powered kidney function analysis</p>
+        </header>
+
+        {% if prediction %}
+        <div class="result-section">
+            <div class="result {{ 'danger' if prediction == 'Positive' else 'safe' }}">
+                <span class="result-icon">{{ '⚠️' if prediction == 'Positive' else '✅' }}</span>
+                <span>{{ insights.title }}</span>
+            </div>
+
+            <div class="insights-container">
+                <div class="insight-card glass-card">
+                    <h3>Analysis Summary</h3>
+                    <p>{{ insights.description }}</p>
+                </div>
+
+                {% if insights.risk_factors %}
+                <div class="insight-card glass-card">
+                    <h3>🔍 Risk Factors</h3>
+                    <ul class="insight-list">
+                        {% for factor in insights.risk_factors %}
+                        <li>{{ factor }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if insights.recommendations %}
+                <div class="insight-card glass-card">
+                    <h3>💡 Recommendations</h3>
+                    <ul class="insight-list">
+                        {% for rec in insights.recommendations %}
+                        <li>{{ rec }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if insights.tips %}
+                <div class="insight-card glass-card">
+                    <h3>💚 Health Tips</h3>
+                    <ul class="insight-list">
+                        {% for tip in insights.tips %}
+                        <li>{{ tip }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="result danger">
+            Error: {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="card form-card" style="max-width: 900px; margin: 2rem auto;">
+            <h2 style="margin-bottom: 1.5rem;">Enter Patient Data</h2>
+            <form action="/kidney" method="POST">
+                <div class="form-grid">
+                    <div class="form-group"><label>Age</label><input type="number" name="age" step="1" required
+                            placeholder="e.g. 50"></div>
+                    <div class="form-group"><label>Blood Pressure (bp)</label><input type="number" name="bp" step="1"
+                            required placeholder="e.g. 80"></div>
+                    <div class="form-group"><label>Specific Gravity (sg)</label><input type="number" name="sg"
+                            step="0.001" required placeholder="e.g. 1.020"></div>
+                    <div class="form-group"><label>Albumin (al)</label><input type="number" name="al" step="1" required
+                            placeholder="0-5"></div>
+                    <div class="form-group"><label>Sugar (su)</label><input type="number" name="su" step="1" required
+                            placeholder="0-5"></div>
+
+                    <div class="form-group"><label>Red Blood Cells (rbc)</label>
+                        <select name="rbc">
+                            <option value="1">Normal</option>
+                            <option value="0">Abnormal</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Pus Cell (pc)</label>
+                        <select name="pc">
+                            <option value="1">Normal</option>
+                            <option value="0">Abnormal</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Pus Cell Clumps (pcc)</label>
+                        <select name="pcc">
+                            <option value="0">Not Present</option>
+                            <option value="1">Present</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Bacteria (ba)</label>
+                        <select name="ba">
+                            <option value="0">Not Present</option>
+                            <option value="1">Present</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group"><label>Blood Glucose Random (bgr)</label><input type="number" name="bgr"
+                            step="1" required placeholder="e.g. 120"></div>
+                    <div class="form-group"><label>Blood Urea (bu)</label><input type="number" name="bu" step="0.1"
+                            required placeholder="e.g. 40"></div>
+                    <div class="form-group"><label>Serum Creatinine (sc)</label><input type="number" name="sc"
+                            step="0.1" required placeholder="e.g. 1.2"></div>
+                    <div class="form-group"><label>Sodium (sod)</label><input type="number" name="sod" step="0.1"
+                            required placeholder="e.g. 140"></div>
+                    <div class="form-group"><label>Potassium (pot)</label><input type="number" name="pot" step="0.1"
+                            required placeholder="e.g. 4.5"></div>
+                    <div class="form-group"><label>Hemoglobin (hemo)</label><input type="number" name="hemo" step="0.1"
+                            required placeholder="e.g. 14"></div>
+                    <div class="form-group"><label>Packed Cell Volume (pcv)</label><input type="number" name="pcv"
+                            step="1" required placeholder="e.g. 44"></div>
+                    <div class="form-group"><label>White Blood Cell Count (wc)</label><input type="number" name="wc"
+                            step="1" required placeholder="e.g. 8000"></div>
+                    <div class="form-group"><label>Red Blood Cell Count (rc)</label><input type="number" name="rc"
+                            step="0.1" required placeholder="e.g. 5.0"></div>
+
+                    <div class="form-group"><label>Hypertension (htn)</label>
+                        <select name="htn">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Diabetes Mellitus (dm)</label>
+                        <select name="dm">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Coronary Artery Disease (cad)</label>
+                        <select name="cad">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Appetite</label>
+                        <select name="appet">
+                            <option value="0">Good</option>
+                            <option value="1">Poor</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Pedal Edema (pe)</label>
+                        <select name="pe">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Anemia (ane)</label>
+                        <select name="ane">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 2rem;">Analyze Results</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

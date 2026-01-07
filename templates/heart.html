@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Disease Diagnosis - CureSight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">🩺</span>
+            CureSight
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/features" class="nav-link">Features</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <a href="/features" class="back-button">
+            <span class="arrow">←</span> Back to Features
+        </a>
+        <header>
+            <h1>Heart Disease Check</h1>
+            <p class="subtitle">AI-powered cardiovascular risk assessment</p>
+        </header>
+
+        {% if prediction %}
+        <div class="result-section">
+            <div class="result {{ 'danger' if prediction == 'Presence' else 'safe' }}">
+                <span class="result-icon">{{ '⚠️' if prediction == 'Presence' else '✅' }}</span>
+                <span>{{ insights.title }}</span>
+            </div>
+
+            <div class="insights-container">
+                <div class="insight-card glass-card">
+                    <h3>Analysis Summary</h3>
+                    <p>{{ insights.description }}</p>
+                </div>
+
+                {% if insights.risk_factors %}
+                <div class="insight-card glass-card">
+                    <h3>🔍 Risk Factors</h3>
+                    <ul class="insight-list">
+                        {% for factor in insights.risk_factors %}
+                        <li>{{ factor }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if insights.recommendations %}
+                <div class="insight-card glass-card">
+                    <h3>💡 Recommendations</h3>
+                    <ul class="insight-list">
+                        {% for rec in insights.recommendations %}
+                        <li>{{ rec }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if insights.tips %}
+                <div class="insight-card glass-card">
+                    <h3>💚 Health Tips</h3>
+                    <ul class="insight-list">
+                        {% for tip in insights.tips %}
+                        <li>{{ tip }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="result danger">
+            Error: {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="card form-card" style="max-width: 900px; margin: 2rem auto;">
+            <h2 style="margin-bottom: 1.5rem;">Enter Patient Data</h2>
+            <form action="/heart" method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" name="age" required step="1" min="1" max="120" placeholder="e.g. 55">
+                    </div>
+                    <div class="form-group">
+                        <label>Sex</label>
+                        <select name="sex" required>
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Chest Pain Type</label>
+                        <select name="cp" required>
+                            <option value="0">Typical Angina</option>
+                            <option value="1">Atypical Angina</option>
+                            <option value="2">Non-anginal Pain</option>
+                            <option value="3">Asymptomatic</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Resting Blood Pressure (mm Hg)</label>
+                        <input type="number" name="bp" required step="1" placeholder="e.g. 120">
+                    </div>
+                    <div class="form-group">
+                        <label>Cholesterol (mg/dl)</label>
+                        <input type="number" name="chol" required step="1" placeholder="e.g. 200">
+                    </div>
+                    <div class="form-group">
+                        <label>Fasting Blood Sugar > 120 mg/dl</label>
+                        <select name="fbs" required>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Resting ECG Results</label>
+                        <select name="ekg" required>
+                            <option value="0">Normal</option>
+                            <option value="1">ST-T Wave Abnormality</option>
+                            <option value="2">Left Ventricular Hypertrophy</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Max Heart Rate Achieved</label>
+                        <input type="number" name="max_hr" required step="1" placeholder="e.g. 150">
+                    </div>
+                    <div class="form-group">
+                        <label>Exercise Induced Angina</label>
+                        <select name="exang" required>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ST Depression (Oldpeak)</label>
+                        <input type="number" name="oldpeak" required step="0.1" placeholder="e.g. 1.5">
+                    </div>
+                    <div class="form-group">
+                        <label>Slope of Peak Exercise ST</label>
+                        <select name="slope" required>
+                            <option value="0">Upsloping</option>
+                            <option value="1">Flat</option>
+                            <option value="2">Downsloping</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Major Vessels (0-3)</label>
+                        <input type="number" name="ca" required min="0" max="3" placeholder="0-3">
+                    </div>
+                    <div class="form-group">
+                        <label>Thallium Stress Test</label>
+                        <select name="thal" required>
+                            <option value="3">Normal</option>
+                            <option value="6">Fixed Defect</option>
+                            <option value="7">Reversible Defect</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 2rem;">
+                    Analyze Results
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

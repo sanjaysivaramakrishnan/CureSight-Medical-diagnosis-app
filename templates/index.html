@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Medical Diagnosis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MediAI Diagnosis</h1>
+            <p class="subtitle">Advanced Artificial Intelligence for Early Detection</p>
+        </header>
+
+        <div class="grid">
+            <!-- Heart Disease -->
+            <div class="card">
+                <h2>Heart Disease</h2>
+                <p>Predict heart disease risk using clinical parameters like BP, Cholesterol, and EKG.</p>
+                <a href="/heart" class="btn">Diagnose</a>
+            </div>
+
+            <!-- Diabetes -->
+            <div class="card">
+                <h2>Diabetes</h2>
+                <p>Assess diabetes likelihood based on glucose levels, BMI, and medical history.</p>
+                <a href="/diabetes" class="btn">Diagnose</a>
+            </div>
+
+            <!-- Kidney Disease -->
+            <div class="card">
+                <h2>Kidney Disease</h2>
+                <p>Detect chronic kidney disease using blood and urine analysis markers.</p>
+                <a href="/kidney" class="btn">Diagnose</a>
+            </div>
+
+            <!-- Liver Disease -->
+            <div class="card">
+                <h2>Liver Disease</h2>
+                <p>Evaluate liver function and disease probability using enzyme levels.</p>
+                <a href="/liver" class="btn">Diagnose</a>
+            </div>
+
+            <!-- Breast Cancer -->
+            <div class="card">
+                <h2>Breast Cancer</h2>
+                <p>Classify tumor characteristics as benign or malignant based on cell metrics.</p>
+                <a href="/breast_cancer" class="btn">Diagnose</a>
+            </div>
+
+            <!-- Malaria -->
+            <div class="card">
+                <h2>Malaria</h2>
+                <p>Detect parasitized cells in microscopic blood smear images using CNNs.</p>
+                <a href="/malaria" class="btn">Analyze Image</a>
+            </div>
+
+            <!-- Pneumonia -->
+            <div class="card">
+                <h2>Pneumonia</h2>
+                <p>Identify pneumonia in chest X-ray images using Deep Learning.</p>
+                <a href="/pneumonia" class="btn">Analyze X-Ray</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
